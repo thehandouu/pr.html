@@ -92,37 +92,129 @@
         
         <li><strong>Абстракция</strong> — процесс выделения общих свойств и поведения объектов, игнорируя специфичные детали реализации. Абстракция используется для создания обобщённых классов и методов, скрывающих сложность внутренних механизмов и облегчающих понимание и модификацию кода.</li>
     </ol>
+    <h2>Принципы ООП на&nbsp;Python</strong></h2><p class="stk-reset" data-ce-tag="paragraph">Всё объектно-ориентированное программирование строится на&nbsp;четырёх понятиях: инкапсуляции, наследовании, полиморфизме и&nbsp;абстракциях. Поэтому давайте объявим наш класс «Кошка» и&nbsp;будем объяснять ООП на&nbsp;нём:</p><figure class="stk-reset stk-embed_rendered" data-ce-tag="embed"><code class="stk-code"><pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(0, 0, 0); color: rgb(248, 248, 248);"><span class="hljs-class"><span class="hljs-keyword" style="color: rgb(150, 203, 254);">class</span> <span class="hljs-title" style="color: rgb(255, 255, 182);">Cat</span><span class="hljs-params">()</span>:</span>
+        <span class="hljs-function"><span class="hljs-keyword" style="color: rgb(150, 203, 254);">def</span> <span class="hljs-title" style="color: rgb(255, 255, 182);">__init__</span><span class="hljs-params">(self, breed, color, age)</span>:</span>
+           self.breed = breed
+           self.color = color
+           self.age = age
+      
+        <span class="hljs-function"><span class="hljs-keyword" style="color: rgb(150, 203, 254);">def</span> <span class="hljs-title" style="color: rgb(255, 255, 182);">meow</span><span class="hljs-params">(self)</span>:</span>
+           print(<span class="hljs-string" style="color: rgb(168, 255, 96);">'Мяу!'</span>)
+      
+        <span class="hljs-function"><span class="hljs-keyword" style="color: rgb(150, 203, 254);">def</span> <span class="hljs-title" style="color: rgb(255, 255, 182);">purr</span><span class="hljs-params">(self)</span>:</span>
+           print(<span class="hljs-string" style="color: rgb(168, 255, 96);">'Мрррр'</span>)</pre></code><figcaption class="stk-reset stk-description" data-ce-tag="description"></figcaption></figure><p class="stk-reset" data-ce-tag="paragraph">Метод <u class="stk-reset">__init__</u>&nbsp;— инициализатор класса. Он&nbsp;вызывается сразу после создания объекта, чтобы присваивать значения динамическим атрибутам. <u class="stk-reset">self</u>&nbsp;— ссылка на&nbsp;текущий объект, она даёт доступ к&nbsp;атрибутам и&nbsp;методам, с&nbsp;которыми вы&nbsp;работаете. Её&nbsp;аналог в&nbsp;других языках программирования&nbsp;— <u class="stk-reset">this</u>.</p><p class="stk-reset" data-ce-tag="paragraph"><strong class="stk-reset" data-gtm-vis-has-fired-10171822_255="1">Примечание 1.</strong> Слово <u class="stk-reset" data-gtm-vis-has-fired-10171822_255="1">self</u>&nbsp;общепринятое, но&nbsp;не&nbsp;обязательное, вместо него можно использовать любое другое. Однако это может запутать тех, кто будет читать ваш&nbsp;код.</p><p class="stk-reset" data-ce-tag="paragraph"><strong class="stk-reset">Примечание 2.</strong> Названия классов принято писать с&nbsp;прописной буквы, а&nbsp;объектов&nbsp;— со&nbsp;строчной.</p><p class="stk-reset" data-ce-tag="paragraph">Итак, мы&nbsp;создали класс <u class="stk-reset">Cat</u>, в&nbsp;котором объявили три атрибута: порода&nbsp;— <u class="stk-reset">breed</u>, цвет&nbsp;— <u class="stk-reset">color</u> и&nbsp;возраст&nbsp;— <u class="stk-reset">age</u>. А&nbsp;ещё добавили два метода, чтобы наша кошка умела мяукать&nbsp;— <u class="stk-reset">meow()</u> и&nbsp;мурчать&nbsp;— <u class="stk-reset">purr()</u>.</p><p class="stk-reset" data-ce-tag="paragraph">Давайте создадим пару объектов нашего класса:</p><figure class="stk-reset stk-embed_rendered" data-ce-tag="embed"><code class="stk-code"><pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(0, 0, 0); color: rgb(248, 248, 248);">cat1 = Cat(<span class="hljs-string" style="color: rgb(168, 255, 96);">'Абиссинская'</span>, <span class="hljs-string" style="color: rgb(168, 255, 96);">'Рыжая'</span>, <span class="hljs-number" style="color: rgb(255, 115, 253);">4</span>)
+      cat2 = Cat(<span class="hljs-string" style="color: rgb(168, 255, 96);">'Британская'</span>, <span class="hljs-string" style="color: rgb(168, 255, 96);">'Серая'</span>, <span class="hljs-number" style="color: rgb(255, 115, 253);">2</span>)</pre></code><figcaption class="stk-reset stk-description" data-ce-tag="description"></figcaption></figure><p class="stk-reset" data-ce-tag="paragraph">Отлично, теперь, когда у&nbsp;нас есть основа, приступим к&nbsp;изучению принципов&nbsp;ООП.</p><h3 class="stk-theme_26309__style_medium_header stk-theme_26309__mb_05 stk-reset" data-ce-tag="paragraph"><strong class="stk-reset">Инкапсуляция</strong></h3><p class="stk-reset" data-ce-tag="paragraph">Доступ к&nbsp;данным объекта должен контролироваться, чтобы пользователь не&nbsp;мог изменить их&nbsp;в&nbsp;произвольном порядке и&nbsp;что-то поломать. Поэтому для работы с&nbsp;данными программисты пишут методы, которые можно будет использовать вне класса и&nbsp;которые ничего не&nbsp;сломают внутри.</p><p class="stk-reset" data-ce-tag="paragraph">Вернёмся к&nbsp;нашим кошечкам. Мы&nbsp;можем разрешить изменять атрибут «возраст», но&nbsp;только в&nbsp;большую сторону, а&nbsp;атрибуты «порода» и&nbsp;«цвет» лучше открыть только для чтения&nbsp;— ведь порода кошки не&nbsp;меняется, а&nbsp;цвет если и&nbsp;меняется, то&nbsp;не&nbsp;по&nbsp;её&nbsp;инициативе.</p><p class="stk-reset" data-ce-tag="paragraph">В&nbsp;нашем классе «Кошка» мы&nbsp;сделали все атрибуты открытыми, поэтому давайте это исправим:</p><figure class="stk-reset stk-embed_rendered" data-ce-tag="embed"><code class="stk-code"><pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(0, 0, 0); color: rgb(248, 248, 248);"><span class="hljs-class"><span class="hljs-keyword" style="color: rgb(150, 203, 254);">class</span> <span class="hljs-title" style="color: rgb(255, 255, 182);">Cat</span><span class="hljs-params">()</span>:</span>
+        <span class="hljs-function"><span class="hljs-keyword" style="color: rgb(150, 203, 254);">def</span> <span class="hljs-title" style="color: rgb(255, 255, 182);">__init__</span><span class="hljs-params">(self, breed, color, age)</span>:</span>
+           self._breed = breed
+           self._color = color
+           self._age = age
+      
+      <span class="hljs-meta" style="color: rgb(124, 124, 124);">  @property</span>
+        <span class="hljs-function"><span class="hljs-keyword" style="color: rgb(150, 203, 254);">def</span> <span class="hljs-title" style="color: rgb(255, 255, 182);">breed</span><span class="hljs-params">(self)</span>:</span>
+          <span class="hljs-keyword" style="color: rgb(150, 203, 254);">return</span> self._breed
+          
+      <span class="hljs-meta" style="color: rgb(124, 124, 124);">  @property</span>
+        <span class="hljs-function"><span class="hljs-keyword" style="color: rgb(150, 203, 254);">def</span> <span class="hljs-title" style="color: rgb(255, 255, 182);">color</span><span class="hljs-params">(self)</span>:</span>
+          <span class="hljs-keyword" style="color: rgb(150, 203, 254);">return</span> self._color
+          
+      <span class="hljs-meta" style="color: rgb(124, 124, 124);">  @property</span>
+        <span class="hljs-function"><span class="hljs-keyword" style="color: rgb(150, 203, 254);">def</span> <span class="hljs-title" style="color: rgb(255, 255, 182);">age</span><span class="hljs-params">(self)</span>:</span>
+          <span class="hljs-keyword" style="color: rgb(150, 203, 254);">return</span> self._age
+        
+      <span class="hljs-meta" style="color: rgb(124, 124, 124);">  @age.setter</span>
+        <span class="hljs-function"><span class="hljs-keyword" style="color: rgb(150, 203, 254);">def</span> <span class="hljs-title" style="color: rgb(255, 255, 182);">age</span><span class="hljs-params">(self, new_age)</span>:</span>
+          <span class="hljs-keyword" style="color: rgb(150, 203, 254);">if</span> new_age &gt; self._age:
+            self._age = new_age
+          <span class="hljs-keyword" style="color: rgb(150, 203, 254);">return</span> self._age</pre></code><figcaption class="stk-reset stk-description" data-ce-tag="description"></figcaption></figure><p class="stk-reset" data-ce-tag="paragraph">Код стал выглядеть немного сложнее, но&nbsp;мы&nbsp;сейчас всё объясним. Сначала мы&nbsp;сделали все атрибуты закрытыми с&nbsp;помощью символа <u class="stk-reset">_</u>. Он&nbsp;говорит интерпретатору, что эта переменная будет доступна только внутри методов класса.</p><p class="stk-reset" data-ce-tag="paragraph">Нам всё ещё нужно получать доступ к&nbsp;атрибутам, поэтому мы&nbsp;предоставляем его через <u class="stk-reset">@property</u> и&nbsp;объявляем для каждого атрибута свой метод&nbsp;— <u class="stk-reset">breed</u>, <u class="stk-reset">color</u>, <u class="stk-reset">age</u>. В&nbsp;каждом из&nbsp;этих методов мы&nbsp;возвращаем значение нашего закрытого атрибута. Это делает его доступным только для чтения.</p><p class="stk-reset" data-ce-tag="paragraph">И&nbsp;последнее&nbsp;— мы&nbsp;должны позволить пользователям увеличивать возраст кота. Для этого воспользуемся <u class="stk-reset">@age.setter</u> и&nbsp;ещё раз объявим метод <u class="stk-reset">age</u>, а&nbsp;внутри него напишем простое условие и&nbsp;вернём значение атрибута.</p><p class="stk-reset" data-ce-tag="paragraph">Теперь создадим экземпляр класса:</p><figure class="stk-reset stk-embed_rendered" data-ce-tag="embed"><code class="stk-code"><pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(0, 0, 0); color: rgb(248, 248, 248);">cat = Cat(<span class="hljs-string" style="color: rgb(168, 255, 96);">'Абиссинская'</span>, <span class="hljs-string" style="color: rgb(168, 255, 96);">'Рыжая'</span>, <span class="hljs-number" style="color: rgb(255, 115, 253);">4</span>)</pre></code><figcaption class="stk-reset stk-description" data-ce-tag="description"></figcaption></figure><p class="stk-reset" data-ce-tag="paragraph">Выведем значения атрибутов:</p><figure class="stk-reset stk-embed_rendered" data-ce-tag="embed"><code class="stk-code"><pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(0, 0, 0); color: rgb(248, 248, 248);">print(cat.breed) <span class="hljs-comment" style="color: rgb(124, 124, 124);"># Абиссинская</span>
+      print(cat.color) <span class="hljs-comment" style="color: rgb(124, 124, 124);"># Рыжая</span>
+      print(cat.age) <span class="hljs-comment" style="color: rgb(124, 124, 124);"># 4</span>
+      </pre></code><figcaption class="stk-reset stk-description" data-ce-tag="description"></figcaption></figure><p class="stk-reset" data-ce-tag="paragraph">И&nbsp;попробуем изменить атрибут <u class="stk-reset">age</u>:</p><figure class="stk-reset stk-embed_rendered" data-ce-tag="embed"><code class="stk-code"><pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(0, 0, 0); color: rgb(248, 248, 248);">cat.age = <span class="hljs-number" style="color: rgb(255, 115, 253);">5</span>
+      print(cat.age) <span class="hljs-comment" style="color: rgb(124, 124, 124);"># 5</span></pre></code><figcaption class="stk-reset stk-description" data-ce-tag="description"></figcaption></figure><p class="stk-reset" data-ce-tag="paragraph">Всё успешно. А&nbsp;теперь сделаем это с&nbsp;другим атрибутом:</p><figure class="stk-reset stk-embed_rendered" data-ce-tag="embed"><code class="stk-code"><pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(0, 0, 0); color: rgb(248, 248, 248);">cat.breed = <span class="hljs-string" style="color: rgb(168, 255, 96);">'Сиамская'</span>
+      print(cat.breed) <span class="hljs-comment" style="color: rgb(124, 124, 124);"># AttributeError: can't set attribute on line 34 in main.py</span></pre></code><figcaption class="stk-reset stk-description" data-ce-tag="description"></figcaption></figure><p class="stk-reset" data-ce-tag="paragraph">Мы получили ошибку, потому что запретили изменять этот атрибут.</p><div class="stk-grid__layout_reverse stk-grid" data-stk-css="stkmhYMr" data-ce-tag="grid"><div data-col-width="4" class="stk-grid-col valign-middle stk-grid-col_last" data-ce-tag="grid-col" data-stk-css="" data-stk-css-m=""><figure class="stk-reset stk-image-figure" data-ce-tag="image-figure"></div><div data-col-width="8" class="stk-grid-col" data-ce-tag="grid-col"><p class="stk-reset stk-theme_26309__mb_05 stk-theme_26309__style_font_style-1629726727970" data-ce-tag="paragraph"></p><p class="stk-theme_26309__mb_15 stk-reset stk-theme_26309__style_font_style-1629786048064 stk-theme_26309__style_font_style-1629290372003 stk-theme_26309__color_26309_custom_color_1 article_incut" data-ce-tag="paragraph"></p></div></div><h3 class="stk-theme_26309__style_medium_header stk-theme_26309__mb_05 stk-reset" data-ce-tag="paragraph"><strong class="stk-reset">Наследование</strong></h3><p class="stk-reset" data-ce-tag="paragraph">Классы могут передавать свои атрибуты и&nbsp;методы классам-потомкам. Например, мы&nbsp;хотим создать новый класс «Домашняя кошка». Он&nbsp;практически идентичен классу «Кошка», но&nbsp;у&nbsp;него появляются новые атрибуты «хозяин» и&nbsp;«кличка», а&nbsp;также метод «клянчить вкусняшку».</p><p class="stk-reset" data-ce-tag="paragraph">Достаточно объявить «Домашнюю кошку» наследником «Кошки» и&nbsp;прописать новые атрибуты и&nbsp;методы&nbsp;— вся остальная функциональность перейдёт от&nbsp;родителя к&nbsp;потомку.</p><p class="stk-reset" data-ce-tag="paragraph">Давайте объявим новый класс:</p><figure class="stk-reset stk-embed_rendered" data-ce-tag="embed"><code class="stk-code"><pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(0, 0, 0); color: rgb(248, 248, 248);"><span class="hljs-class"><span class="hljs-keyword" style="color: rgb(150, 203, 254);">class</span> <span class="hljs-title" style="color: rgb(255, 255, 182);">HomeCat</span><span class="hljs-params">(Cat)</span>:</span>
+        <span class="hljs-function"><span class="hljs-keyword" style="color: rgb(150, 203, 254);">def</span> <span class="hljs-title" style="color: rgb(255, 255, 182);">__init__</span><span class="hljs-params">(self, breed, color, age, owner, name)</span>:</span>
+          super().__init__(breed, color, age)
+          self._owner = owner
+          self._name = name
+        
+      <span class="hljs-meta" style="color: rgb(124, 124, 124);">  @property</span>
+        <span class="hljs-function"><span class="hljs-keyword" style="color: rgb(150, 203, 254);">def</span> <span class="hljs-title" style="color: rgb(255, 255, 182);">owner</span><span class="hljs-params">(self)</span>:</span>
+          <span class="hljs-keyword" style="color: rgb(150, 203, 254);">return</span> self._owner
+          
+      <span class="hljs-meta" style="color: rgb(124, 124, 124);">  @property</span>
+        <span class="hljs-function"><span class="hljs-keyword" style="color: rgb(150, 203, 254);">def</span> <span class="hljs-title" style="color: rgb(255, 255, 182);">name</span><span class="hljs-params">(self)</span>:</span>
+          <span class="hljs-keyword" style="color: rgb(150, 203, 254);">return</span> self._name
+        
+        <span class="hljs-function"><span class="hljs-keyword" style="color: rgb(150, 203, 254);">def</span> <span class="hljs-title" style="color: rgb(255, 255, 182);">getTreat</span><span class="hljs-params">(self)</span>:</span>
+          print(<span class="hljs-string" style="color: rgb(168, 255, 96);">'Мяу-мяу'</span>)</pre></code><figcaption class="stk-reset stk-description" data-ce-tag="description"></figcaption></figure><p class="stk-reset" data-ce-tag="paragraph">В&nbsp;первой строке мы&nbsp;как раз наследуем все методы и&nbsp;атрибуты класса <u class="stk-reset" data-gtm-vis-has-fired-10171822_255="1">Cat</u>. А&nbsp;чтобы всё создалось корректно, мы&nbsp;должны вызвать метод <u class="stk-reset" data-gtm-vis-has-fired-10171822_255="1">super()</u> в&nbsp;методе <u class="stk-reset" data-gtm-vis-has-fired-10171822_255="1">__init__()</u> и&nbsp;через него заполнить атрибуты класса-родителя. Поэтому мы&nbsp;и&nbsp;передаём в&nbsp;этот метод «породу», «окрас» и&nbsp;«возраст».</p><p class="stk-reset" data-ce-tag="paragraph">Кроме атрибутов для класса-родителя у&nbsp;класса-потомка есть и&nbsp;собственные атрибуты: «хозяин»&nbsp;— <u class="stk-reset">owner</u> и&nbsp;«кличка»&nbsp;— <u class="stk-reset">name</u>. Их&nbsp;мы&nbsp;будем использовать только в&nbsp;этом классе, поэтому они будут недоступны для класса-родителя.</p><p class="stk-reset" data-ce-tag="paragraph">Мы&nbsp;сразу сделали атрибуты класса-потомка закрытыми и&nbsp;объявили для них собственные методы. А&nbsp;также добавили метод <strong class="stk-reset" data-gtm-vis-has-fired-10171822_255="1">&ZeroWidthSpace;&ZeroWidthSpace;</strong><u class="stk-reset" data-gtm-vis-has-fired-10171822_255="1">getTreat()</u>, которого нет в&nbsp;классе-родителе.</p><p class="stk-reset" data-ce-tag="paragraph">Давайте создадим объект класса:</p><figure class="stk-reset stk-embed_rendered" data-ce-tag="embed"><code class="stk-code"><pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(0, 0, 0); color: rgb(248, 248, 248);">my_cat = HomeCat(<span class="hljs-string" style="color: rgb(168, 255, 96);">'Сиамская'</span>, <span class="hljs-string" style="color: rgb(168, 255, 96);">'Белая'</span>, <span class="hljs-number" style="color: rgb(255, 115, 253);">3</span>, <span class="hljs-string" style="color: rgb(168, 255, 96);">'Иван'</span>, <span class="hljs-string" style="color: rgb(168, 255, 96);">'Роза'</span>)
+      
+      print(my_cat.owner)
+      print(my_cat.breed)
+      my_cat.getTreat() <span class="hljs-comment" style="color: rgb(124, 124, 124);"># Мяу-мяу</span>
+      my_cat.purr() <span class="hljs-comment" style="color: rgb(124, 124, 124);"># Мрррр</span>
+      </pre></code><figcaption class="stk-reset stk-description" data-ce-tag="description"></figcaption></figure><p class="stk-reset" data-ce-tag="paragraph">Как видим, у&nbsp;нас работают и&nbsp;новые методы, и&nbsp;старые. Наследование прошло успешно.</p><div class="stk-grid__layout_reverse stk-grid" data-stk-css="stkrAskc" data-ce-tag="grid"><div data-col-width="4" class="stk-grid-col valign-middle stk-grid-col_last" data-ce-tag="grid-col" data-stk-css="" data-stk-css-m=""><figure class="stk-reset stk-image-figure" data-ce-tag="image-figure"><div class="stk-mask" data-ce-tag="mask"></div></figure></div><div data-col-width="8" class="stk-grid-col" data-ce-tag="grid-col"><p class="stk-reset stk-theme_26309__mb_05 stk-theme_26309__style_font_style-1629726727970" data-ce-tag="paragraph"></p><p class="stk-theme_26309__mb_15 stk-reset stk-theme_26309__style_font_style-1629786048064 stk-theme_26309__style_font_style-1629290372003 stk-theme_26309__color_26309_custom_color_1 article_incut" data-ce-tag="paragraph"></p></div></div><h3 class="stk-theme_26309__style_medium_header stk-theme_26309__mb_05 stk-reset" data-ce-tag="paragraph"><strong class="stk-reset">Полиморфизм</strong></h3><p class="stk-reset" data-ce-tag="paragraph">Этот принцип позволяет применять одни и&nbsp;те&nbsp;же команды к&nbsp;объектам разных классов, даже если они выполняются по-разному. Например, помимо класса «Кошка», у&nbsp;нас есть никак не&nbsp;связанный с&nbsp;ним класс «Попугай»&nbsp;— и&nbsp;у&nbsp;обоих есть метод «спать». Несмотря на&nbsp;то что кошки и&nbsp;попугаи спят по-разному (кошка сворачивается клубком, а&nbsp;попугай сидит на&nbsp;жёрдочке), для этих действий можно использовать одну команду.</p><p class="stk-reset" data-ce-tag="paragraph">Допустим у&nbsp;нас есть два класса&nbsp;— «Кошка» и&nbsp;«Попугай»:</p><figure class="stk-reset stk-embed_rendered" data-ce-tag="embed"><code class="stk-code"><pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(0, 0, 0); color: rgb(248, 248, 248);"><span class="hljs-class"><span class="hljs-keyword" style="color: rgb(150, 203, 254);">class</span> <span class="hljs-title" style="color: rgb(255, 255, 182);">Cat</span>:</span>
+        <span class="hljs-function"><span class="hljs-keyword" style="color: rgb(150, 203, 254);">def</span> <span class="hljs-title" style="color: rgb(255, 255, 182);">sleep</span><span class="hljs-params">(self)</span>:</span>
+          print(<span class="hljs-string" style="color: rgb(168, 255, 96);">'Свернулся в клубок и сладко спит.'</span>)
+      
+      <span class="hljs-class"><span class="hljs-keyword" style="color: rgb(150, 203, 254);">class</span> <span class="hljs-title" style="color: rgb(255, 255, 182);">Parrot</span>:</span>
+        <span class="hljs-function"><span class="hljs-keyword" style="color: rgb(150, 203, 254);">def</span> <span class="hljs-title" style="color: rgb(255, 255, 182);">sleep</span><span class="hljs-params">(self)</span>:</span>
+          print(<span class="hljs-string" style="color: rgb(168, 255, 96);">'Сел на жёрдочку и уснул.'</span>)</pre></code><figcaption class="stk-reset stk-description" data-ce-tag="description"></figcaption></figure><p class="stk-reset" data-ce-tag="paragraph">А&nbsp;теперь пусть у&nbsp;нас есть метод, который ожидает, что ему на&nbsp;вход придёт объект, у&nbsp;которого будет метод <u class="stk-reset">sleep</u>:</p><figure class="stk-reset stk-embed_rendered" data-ce-tag="embed"><code class="stk-code"><pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(0, 0, 0); color: rgb(248, 248, 248);"><span class="hljs-function"><span class="hljs-keyword" style="color: rgb(150, 203, 254);">def</span> <span class="hljs-title" style="color: rgb(255, 255, 182);">homeSleep</span><span class="hljs-params">(animal)</span>:</span>
+        animal.sleep()</pre></code><figcaption class="stk-reset stk-description" data-ce-tag="description"></figcaption></figure><p class="stk-reset" data-ce-tag="paragraph">Посмотрим, как это будет работать:</p><figure class="stk-reset stk-embed_rendered" data-ce-tag="embed"><code class="stk-code"><pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(0, 0, 0); color: rgb(248, 248, 248);">cat = Cat()
+      parrot = Parrot()
+      homeSleep(cat) <span class="hljs-comment" style="color: rgb(124, 124, 124);"># Свернулся в клубок и сладко спит.</span>
+      homeSleep(parrot) <span class="hljs-comment" style="color: rgb(124, 124, 124);"># Сел на жёрдочку и уснул.</span></pre></code><figcaption class="stk-reset stk-description" data-ce-tag="description"></figcaption></figure><p class="stk-reset" data-ce-tag="paragraph">Хотя классы разные, их&nbsp;одноимённые методы работают похожим образом. Это и&nbsp;есть полиморфизм.</p><div class="stk-grid__layout_reverse stk-grid" data-stk-css="stkCD-Dy" data-ce-tag="grid"><div data-col-width="4" class="stk-grid-col valign-middle stk-grid-col_last" data-ce-tag="grid-col" data-stk-css="" data-stk-css-m=""><figure class="stk-reset stk-image-figure" data-ce-tag="image-figure"><div class="stk-mask" data-ce-tag="mask"></figure></div><div data-col-width="8" class="stk-grid-col" data-ce-tag="grid-col"><p class="stk-reset stk-theme_26309__mb_05 stk-theme_26309__style_font_style-1629726727970" data-ce-tag="paragraph"></p><p class="stk-theme_26309__mb_15 stk-reset stk-theme_26309__style_font_style-1629786048064 stk-theme_26309__style_font_style-1629290372003 stk-theme_26309__color_26309_custom_color_1 article_incut" data-ce-tag="paragraph"></p></div></div><h3 class="stk-theme_26309__style_medium_header stk-theme_26309__mb_05 stk-reset" data-ce-tag="paragraph"><strong class="stk-reset">Абстракция</strong></h3><p class="stk-reset" data-ce-tag="paragraph">При создании класса мы&nbsp;упрощаем его до&nbsp;тех атрибутов и&nbsp;методов, которые нужны именно в&nbsp;этом коде, не&nbsp;пытаясь описать его целиком и&nbsp;отбрасывая всё второстепенное. Например, у&nbsp;всех хищников есть метод «охотиться», поэтому все животные, которые являются хищниками, автоматически будут уметь охотиться.</p><p class="stk-reset" data-ce-tag="paragraph">Рассмотрим класс Predator:</p><figure class="stk-reset stk-embed_rendered" data-ce-tag="embed"><code class="stk-code"><pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(0, 0, 0); color: rgb(248, 248, 248);"><span class="hljs-class"><span class="hljs-keyword" style="color: rgb(150, 203, 254);">class</span> <span class="hljs-title" style="color: rgb(255, 255, 182);">Predator</span>:</span>
+        <span class="hljs-function"><span class="hljs-keyword" style="color: rgb(150, 203, 254);">def</span> <span class="hljs-title" style="color: rgb(255, 255, 182);">hunt</span><span class="hljs-params">(self)</span>:</span>
+          print(<span class="hljs-string" style="color: rgb(168, 255, 96);">'Охотится...'</span>)</pre></code><figcaption class="stk-reset stk-description" data-ce-tag="description"></figcaption></figure><p class="stk-reset" data-ce-tag="paragraph">Этот класс будет общим для всех животных, которые являются хищниками,&nbsp;— например, кошек:</p><figure class="stk-reset stk-embed_rendered" data-ce-tag="embed"><code class="stk-code"><pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(0, 0, 0); color: rgb(248, 248, 248);"><span class="hljs-class"><span class="hljs-keyword" style="color: rgb(150, 203, 254);">class</span> <span class="hljs-title" style="color: rgb(255, 255, 182);">Cat</span><span class="hljs-params">(Predator)</span>:</span>
+        <span class="hljs-function"><span class="hljs-keyword" style="color: rgb(150, 203, 254);">def</span> <span class="hljs-title" style="color: rgb(255, 255, 182);">__init__</span><span class="hljs-params">(self, name, color)</span>:</span>
+           super().__init__()
+           self._name = name
+           self._color = color
+      
+      <span class="hljs-meta" style="color: rgb(124, 124, 124);">  @property</span>
+        <span class="hljs-function"><span class="hljs-keyword" style="color: rgb(150, 203, 254);">def</span> <span class="hljs-title" style="color: rgb(255, 255, 182);">name</span><span class="hljs-params">(self)</span>:</span>
+          <span class="hljs-keyword" style="color: rgb(150, 203, 254);">return</span> self._name
+      
+      <span class="hljs-meta" style="color: rgb(124, 124, 124);">  @property</span>
+        <span class="hljs-function"><span class="hljs-keyword" style="color: rgb(150, 203, 254);">def</span> <span class="hljs-title" style="color: rgb(255, 255, 182);">color</span><span class="hljs-params">(self)</span>:</span>
+          <span class="hljs-keyword" style="color: rgb(150, 203, 254);">return</span> self._color</pre></code><figcaption class="stk-reset stk-description" data-ce-tag="description"></figcaption></figure><p class="stk-reset" data-ce-tag="paragraph">У&nbsp;кошки есть свои атрибуты: «имя»&nbsp;— <u class="stk-reset">name</u> и&nbsp;«окрас»&nbsp;— <u class="stk-reset">color</u>. Но&nbsp;при этом она потомок хищников, а&nbsp;значит, умеет охотиться:</p><figure class="stk-reset stk-embed_rendered" data-ce-tag="embed"><code class="stk-code"><pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(0, 0, 0); color: rgb(248, 248, 248);">cat = Cat(<span class="hljs-string" style="color: rgb(168, 255, 96);">'Даниэла'</span>, <span class="hljs-string" style="color: rgb(168, 255, 96);">'Чёрный'</span>)
+      cat.hunt() <span class="hljs-comment" style="color: rgb(124, 124, 124);"># Охотится…</span></pre></code><figcaption class="stk-reset stk-description" data-ce-tag="description"></figcaption></figure><div class="stk-grid__layout_reverse stk-grid" data-stk-css="stkOYhFY" data-ce-tag="grid"><div data-col-width="4" class="stk-grid-col valign-middle stk-grid-col_last" data-ce-tag="grid-col" data-stk-css="" data-stk-css-m=""><figure class="stk-reset stk-image-figure" data-ce-tag="image-figure"><div class="stk-mask" data-ce-tag="mask"></figure></div><div data-col-width="8" class="stk-grid-col" data-ce-tag="grid-col"><p class="stk-reset stk-theme_26309__mb_05 stk-theme_26309__style_font_style-1629726727970" data-ce-tag="paragraph"></div></div></div></div><div class="stk-theme_26309__mb_15 stk-grid" data-ce-tag="grid"><div data-col-width="12" class="stk-grid-col stk-grid-col_last" data-ce-tag="grid-col"><h2 class="stk-theme_26309__style_large_header stk-reset" data-ce-tag="paragraph"><strong
 </section>
 
 <section id="benefits">
-    <h2>Преимущества ООП</h2>
+    Преимущества ООП
+    <h5>
     <ul>
-        <li>**Модульность**: Код легко структурируется, каждый класс является отдельной единицей разработки, независимой от других частей системы.</li>
-        <li>**Читаемость и поддержка**: Благодаря чёткой структуре и ясности классов и объектов, код становится проще читать и поддерживать даже большими командами разработчиков.</li>
-        <li>**Масштабируемость**: Возможность расширения функционала путём добавления новых классов и методов без изменения основного кода делает проекты масштабируемыми и устойчивыми к изменениям требований.</li>
-        <li>**Безопасность**: Инкапсуляция защищает внутренние данные объектов, предотвращая нежелательные манипуляции извне.</li>
-        <li>**Эффективность повторного использования**: Классы и объекты могут повторно использоваться в разных частях приложения или проектов, сокращая затраты на написание нового кода.</li>
+        <li>Модульность: Код легко структурируется, каждый класс является отдельной единицей разработки, независимой от других частей системы.</li>
+        <li>Читаемость и поддержка: Благодаря чёткой структуре и ясности классов и объектов, код становится проще читать и поддерживать даже большими командами разработчиков.</li>
+        <li>Масштабируемость: Возможность расширения функционала путём добавления новых классов и методов без изменения основного кода делает проекты масштабируемыми и устойчивыми к изменениям требований.</li>
+        <li>Безопасность: Инкапсуляция защищает внутренние данные объектов, предотвращая нежелательные манипуляции извне.</li>
+        <li>Эффективность повторного использования: Классы и объекты могут повторно использоваться в разных частях приложения или проектов, сокращая затраты на написание нового кода.</li>
     </ul>
+</h5>
 </section>
 
 <section id="classes">
-    <h2>Классы и Объекты</h2>
+    Классы и Объекты
+    <h5>
     <p>Класс — это своего рода схема или шаблон, определяющий структуру и поведение будущих объектов. Например, класс "Автомобиль" определяет общие характеристики всех автомобилей (марка, модель, скорость и т.п.) и их поведение (ускоряться, тормозить и т.д.). Объект же — это конкретный экземпляр класса ("Мерседес E-класса").</p>
     
     <p>Каждый объект имеет своё уникальное состояние (например, конкретные значения переменных) и может вызывать методы, определённые в классе, для выполнения действий над собой.</p>
+</h5>
 </section>
 
 <section id="compare">
-    <h2>ООП vs Процедурное программирование</h2>
+    ООП vs Процедурное программирование
+    <h5>
     <p>Основное отличие между этими двумя подходами заключается в организации и представлении кода:</p>
     <ul>
-        <li>**Процедурное программирование**: Фокусируется на последовательном выполнении инструкций, разбитых на процедуры и функции. Логика строится вокруг операций с глобальными переменными и структурами данных.</li>
-        <li>**ООП**: Основывается на объектах, содержащих данные и методы для обработки этих данных. Структура и логика приложения выстраиваются вокруг взаимодействия объектов друг с другом.</li>
+        <li>Процедурное программирование: Фокусируется на последовательном выполнении инструкций, разбитых на процедуры и функции. Логика строится вокруг операций с глобальными переменными и структурами данных.</li>
+        <li>ООП: Основывается на объектах, содержащих данные и методы для обработки этих данных. Структура и логика приложения выстраиваются вокруг взаимодействия объектов друг с другом.</li>
     </ul>
+</h5>
 </section>
 
 <section id="example">
-    <h2>Примеры кода (Python)</h2>
+    Примеры кода (Python)
+    <h5>
     <p>Простой пример класса с методами:</p>
     <pre><code>class Person:
     def __init__(self, name):
@@ -135,31 +227,38 @@ person = Person("Иван")
 person.say_hello()</code></pre>
 
     <p>Здесь мы создаём простой класс Person, инициализирующий свойство name и метод say_hello. Мы создаем объект класса и вызываем его метод.</p>
+</h5>
 </section>
 
 <section id="tasks">
-    <h2>Практические задания</h2>
+    Практические задания
+<h5>
     <ul>
         <li>Создать класс автомобиля (Car) с атрибутами марка, модель, год выпуска и методами ускорения и торможения.</li>
         <li>Реализовать класс студента (Student), включающий поля ФИО, возраст, факультет и метод представления самого себя.</li>
         <li>Создать абстрактный класс животного (Animal) и наследников кошек (Cat) и собак (Dog), реализующих общий интерфейс общения.</li>
     </ul>
+</h5>
 </section>
 
 <section id="patterns">
-    <h2>Паттерны проектирования</h2>
+    Паттерны проектирования
+<h5>
     <p>Паттерны проектирования — это шаблоны решений типовых проблем, встречающихся при создании программного обеспечения. Они помогают разработчикам решать распространённые проблемы архитектуры и дизайна ПО стандартизированным способом.</p>
-
-    <h3>Классификация паттернов</h3>
+</h5>
+    Классификация паттернов
+    <h5>
     <ul>
-        <li><strong>Порождающие</strong> — обеспечивают создание объектов удобным и эффективным способом: **Singleton**, **Abstract Factory**, **Builder**, **Prototype**. Эти паттерны решают проблему создания объектов, сохраняя простоту и гибкость.</li>
-        <li><strong>Структурные</strong> — позволяют организовать связи между компонентами и уменьшить сложности системы: **Adapter**, **Bridge**, **Composite**, **Decorator**, **Facade**, **Proxy**. Они повышают модульность и упрощают интеграцию компонентов.</li>
-        <li><strong>Поведенческие</strong> — управляют процессом взаимодействия объектов и определяют алгоритмы обмена сообщениями: **Observer**, **Strategy**, **Command**, **State**, **Iterator**, **Mediator**. Они делают систему гибче и легче поддерживаемой.</li>
+        <li><strong>Порождающие</strong> — обеспечивают создание объектов удобным и эффективным способом: Singleton, Abstract, Factory, Builder, Prototype. Эти паттерны решают проблему создания объектов, сохраняя простоту и гибкость.</li>
+        <li><strong>Структурные</strong> — позволяют организовать связи между компонентами и уменьшить сложности системы: Adapter, Bridge, Composite, Decorator, Facade, Proxy. Они повышают модульность и упрощают интеграцию компонентов.</li>
+        <li><strong>Поведенческие</strong> — управляют процессом взаимодействия объектов и определяют алгоритмы обмена сообщениями: Observer, Strategy, Command, State, Iterator, Mediator. Они делают систему гибче и легче поддерживаемой.</li>
     </ul>
+</h5>
 
-    <h3>Примеры паттернов</h3>
+    Примеры паттернов
 
     <h4>Singleton (Одиночка)</h4>
+    <h5>
     <p>Обеспечивает наличие единственного экземпляра класса и предоставляет глобальную точку доступа к нему.</p>
     <pre><code>class Singleton:
     _instance = None
@@ -167,8 +266,9 @@ person.say_hello()</code></pre>
         if cls._instance is None:
             cls._instance = super(Singleton, cls).__new__(cls)
         return cls._instance</code></pre>
-
+    </h5>
     <h4>Factory Method</h4>
+<h5>
     <p>Позволяет делегировать создание объектов подклассам, предоставляя общий интерфейс для создания экземпляров различных типов.</p>
     <pre><code>class Animal:
     def speak(self):
@@ -188,10 +288,12 @@ class AnimalFactory:
             return Dog()
         elif animal_type == "cat":
             return Cat()</code></pre>
+        </h5>
 </section>
 
 <section id="languages">
-    <h2>Языки программирования с поддержкой ООП</h2>
+    Языки программирования с поддержкой ООП
+<h5>
     <p>Большинство современных языков поддерживают концепцию ООП. Вот некоторые из наиболее популярных:</p>
     <ul>
         <li>Python</li>
@@ -203,8 +305,9 @@ class AnimalFactory:
         <li>Swift</li>
         <li>Kotlin</li>
     </ul>
-
-    <h3>Пример на Python</h3>
+</h5>
+    Пример на Python
+<h5>
     <pre><code>class Person:
     def __init__(self, name):
         self.name = name
@@ -214,8 +317,9 @@ class AnimalFactory:
 
 p = Person("Игорь")
 p.greet()</code></pre>
-
-    <h3>Пример на Java</h3>
+</h5>
+    Пример на Java
+<h5>
     <pre><code>public class Person {
     private String name;
 
@@ -231,8 +335,9 @@ p.greet()</code></pre>
 // Использование:
 Person p = new Person("Анна");
 p.greet();</code></pre>
-
-    <h3>Пример на C#</h3>
+</h5>
+    Пример на C#
+<h5>
     <pre><code>using System;
 
 class Person {
@@ -250,8 +355,9 @@ class Person {
 // Использование:
 var person = new Person("Сергей");
 person.Greet();</code></pre>
-
-    <h3>Пример на JavaScript</h3>
+</h5>
+    Пример на JavaScript
+<h5>
     <pre><code>class Person {
     constructor(name) {
         this.name = name;
@@ -264,16 +370,19 @@ person.Greet();</code></pre>
 
 const person = new Person('Марина');
 person.greet();</code></pre>
+</h5>
 </section>
 
 <section id="resources">
-    <h2>Полезные ресурсы для дальнейшего изучения</h2>
+    Полезные ресурсы для дальнейшего изучения
+<h6>
     <ul>
         <li><a href="https://refactoring.guru/ru/design-patterns">Design Patterns Guide (Refactoring.guru)</a> — руководство по популярным паттернам проектирования.</li>
         <li><a href="https://pythonworld.ru/osnovy/oop-klassy-i-obekty.html">Основы ООП на примере Python</a> — хорошая статья с примерами и пояснениями.</li>
         <li><a href="https://metanit.com/java/tutorial/3.1.php">Метанит: уроки по ООП в Java</a> — понятное введение в основы ООП на Java.</li>
         <li><a href="https://www.w3schools.com/js/js_object_definition.asp">W3Schools: Object-Oriented Programming in JavaScript</a> — справочник по основам ООП на JavaScript.</li>
     </ul>
+</h6>
 </section>
 
 </body>
